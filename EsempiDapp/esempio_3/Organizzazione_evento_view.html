@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hello World DApp</title>
+  <link href='https://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body class="container">
+<h1>A Simple Application</h1>
+<div class="table-responsive">
+  <h4 id="user_address"></h4>
+  <label style="color:red" id="user_role"></label>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>TOKEN</th>
+      <th>Balance User</th>
+      <th>Balance Distributore</th>
+      <th>Balance STAND</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td id="token1-name"></td>
+      <td >
+        <label id="owner-balance1" ></label>
+      </td>
+      <td >
+        <label id="distributor-balance1" ></label>
+      </td>
+      <td >
+        <label id="atm-balance1" ></label>
+      </td>
+    </tr>
+    <tr>
+      <td id="token2-name"></td>
+      <td >
+      <label id="owner-balance2" ></label>
+      </td>
+      <td >
+        <label id="distributor-balance2" ></label>
+      </td>
+      <td >
+        <label id="atm-balance2" ></label>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+<a href="#" onclick="getBalances()" class="btn btn-primary">Calcola i bilanci</a>
+<a href="#" onclick="hideBalances()" class="btn btn-primary">Nascondi i bilanci</a>
+<br>
+<br>
+<a id='fillDistr-button' href="#" onclick="fillDistributor()" class="btn btn-primary">Ricarica distributore</a>
+<br>
+<br>
+<a id='createATM-button' href="#" onclick="createATM()" class="btn btn-primary">Crea STAND</a>
+<a id='fillATM-button' href="#" onclick="addFundsToATM()" class="btn btn-primary">Ricarica STAND</a>
+<br>
+<label id="atm_info" ></label>
+<br>
+<a id='requestforFirstToken-button' href="#" onclick="requestForFirstToken()" class="btn btn-primary">Richiedi TOKEN di accredito</a>
+<a id='distributeFirstToken-button' href="#" onclick="distributeFirstToken()" class="btn btn-primary">Distribuisci TOKEN di accredito</a>
+<br>
+<br>
+<a id='exchangeToken-button' href="#" onclick="exchangeFirstWithSecond()" class="btn btn-primary">Preleva token BIBITA</a>
+<br>
+<br>
+<input type="number" id="toWithdraw" />
+<a id='withdraw-button' href="#" onclick="withdraw()" class="btn btn-primary">Preleva da STAND</a>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
+<script src="Organizzazione_evento.js" async></script>
+</html>

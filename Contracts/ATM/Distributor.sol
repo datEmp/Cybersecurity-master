@@ -15,9 +15,9 @@ contract Distributor {
     mapping(address=>bool) private requestDone;
 
     constructor(
-        string memory firstTokenName, 
+        string memory firstTokenName,
         string memory firstTokenSymbol,
-        string memory secondTokenName, 
+        string memory secondTokenName,
         string memory secondTokenSymbol) {
 
         owner = msg.sender;
@@ -38,12 +38,13 @@ contract Distributor {
             if(wantFirst[i]!=address(0)){
                 MyToken(firstToken).transfer(wantFirst[i], 1);
                 wantFirst[i]=address(0);
+                requestDone[wantFirst[i]]=false;
             }
         }
     }
 
     function getFirstToken() public {
-        require(requestDone[msg.sender]==false,"request already done");
+        require(requestDone[msg.sender]==false,"requeste already done");
         wantFirst.push(msg.sender);
         requestDone[msg.sender]=true;
     }
@@ -65,7 +66,7 @@ contract Distributor {
     function addFundsToATM(uint256 amount) public{
         require(msg.sender== owner, "only owner can create an ATM");
         require(myATM !=address(0), "atm must be created");
-
+        MyToken(secondToken).mint(amount);
         MyToken(secondToken).transfer(myATM, amount);
     }
 
@@ -103,7 +104,7 @@ contract Distributor {
         return secondToken;
     }
 
-     function wantFirstPrint() public view returns(address[] memory) {
+    function wantFirstPrint() public view returns(address[] memory) {
         return wantFirst;
     }
 

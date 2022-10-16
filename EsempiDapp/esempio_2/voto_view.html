@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <title>Hello World DApp</title>
+ <link href='https://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body class="container">
+ <h1>A Simple Voting Application</h1>
+ <div class="table-responsive">
+  <table class="table table-bordered">
+   <thead>
+    <tr>
+     <th>Candidate</th>
+     <th>Votes</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>Peter</td>
+     <td >
+      <input type="text" id="candidate-1-votes" disabled/>
+     </td>
+    </tr>
+    <tr>
+     <td>Nick</td>
+     <td >
+      <input type="text" id="candidate-2-votes" disabled/>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+ <a href="#" onclick="voteForCandidatePeter()" class="btn btn-primary">Vota per Peter</a>
+ <a href="#" onclick="voteForCandidateNick()" class="btn btn-primary">Vota per Nick</a>
+ <a href="#" onclick="getNumberOfVotes()" class="btn btn-primary">Calcola</a>
+ <a href="#" onclick="hideVotes()" class="btn btn-primary">Nascondi</a>
+</body>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
+<script src="voto.js"></script>
+</html>

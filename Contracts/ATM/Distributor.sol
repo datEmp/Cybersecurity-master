@@ -37,8 +37,8 @@ contract Distributor {
         for(uint256 i = 0; i < wantFirst.length; i++) {
             if(wantFirst[i]!=address(0)){
                 MyToken(firstToken).transfer(wantFirst[i], 1);
-                wantFirst[i]=address(0);
                 requestDone[wantFirst[i]]=false;
+                wantFirst[i]=address(0);
             }
         }
     }

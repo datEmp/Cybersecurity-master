@@ -1,114 +1,73 @@
 pragma solidity ^0.8.15;
 
-import "./MyToken.sol";
-import "./ATM.sol";
-
+//import utili
 contract Distributor {
-    address private owner;
 
-    address private firstToken;
-    address private secondToken;
-    address private myATM;
-
-    address[] private wantFirst;
-
-    mapping(address=>bool) private requestDone;
+    // strutture e parametri di supporto
 
     constructor(
-        string memory firstTokenName,
-        string memory firstTokenSymbol,
-        string memory secondTokenName,
-        string memory secondTokenSymbol) {
+        /*parametri */) {
 
-        owner = msg.sender;
-        address first = address(new MyToken(firstTokenName, firstTokenSymbol));
-        address second = address(new MyToken(secondTokenName, secondTokenSymbol));
-
-        MyToken(first).mint(5000);
-
-        firstToken = first;
-        secondToken = second;
+        //assegnamento dei parametri e mint
     }
 
     function distribute() public {
-        require(msg.sender == owner, "Only owner");
-        require(firstToken != address(0), "Must have first token");
-
-        for(uint256 i = 0; i < wantFirst.length; i++) {
-            if(wantFirst[i]!=address(0)){
-                MyToken(firstToken).transfer(wantFirst[i], 1);
-                requestDone[wantFirst[i]]=false;
-                wantFirst[i]=address(0);
-            }
-        }
+        // distribuire i token1 a chi ne fa richiesta
     }
 
     function getFirstToken() public {
-        require(requestDone[msg.sender]==false,"requeste already done");
-        wantFirst.push(msg.sender);
-        requestDone[msg.sender]=true;
+        // fare richiesta del token1
     }
 
-    function fillDistributor(uint256 amount) public {
-        require(msg.sender== owner, "only owner can fill the distributor");
-        MyToken(firstToken).mint(amount);
+    function fillDistributor(/*parametri */) public {
+        // ricaricare il distributore
     }
 
-    function createATM(uint256 amount) public {
-        require(msg.sender== owner, "only owner can create an ATM");
-        require(myATM ==address(0), "atm already created");
-        ATM atm= new ATM(firstToken, secondToken);
-        myATM = address(atm);
-        MyToken(secondToken).mint(amount);
-        MyToken(secondToken).transfer(address(atm), amount);
+    function createATM(/*parametri */) public {
+        // creare un ATM e passargli una certa quantità di token2
     }
 
-    function addFundsToATM(uint256 amount) public{
-        require(msg.sender== owner, "only owner can create an ATM");
-        require(myATM !=address(0), "atm must be created");
-        MyToken(secondToken).mint(amount);
-        MyToken(secondToken).transfer(myATM, amount);
+    function addFundsToATM(/*parametri */) public{
+        // aggiungere fondi all'ATM
     }
 
-    function withdrawFirstTokenFromATM(uint256 amount)public {
-        require(msg.sender== owner, "only owner can withdraw");
-        require(myATM !=address(0), "atm must be created");
-        ATM(myATM).withdrawFirstToken(amount);
+    function withdrawFirstTokenFromATM(/*parametri */)public {
+        // prelevare i token guadagnati dall'atm
     }
 
     function firstName() public view returns(string memory) {
-        return MyToken(firstToken).name();
+        // OUTPUT nome della moneta1
     }
 
     function secondName() public view returns(string memory) {
-        return MyToken(secondToken).name();
+        // OUTPUT  nome della moneta2
     }
 
-    function firstBalance(address user) public view returns(uint256) {
-        return MyToken(firstToken).balanceOf(user);
+    function firstBalance(/*parametri */) public view returns(uint256) {
+        // OUTPUT balance moneta 1 di un certo utente
     }
 
-    function secondBalance(address user) public view returns(uint256) {
-        return MyToken(secondToken).balanceOf(user);
+    function secondBalance(/*parametri */) public view returns(uint256) {
+        // OUTPUT balance moneta2 di un certo utente
     }
 
     function getMyATM() public view returns(address) {
-        return myATM;
+        // OUTPUT address dell'atm creato
     }
 
     function firstTokenAddress() public view returns(address) {
-        return firstToken;
+        // OUTPUT address della moneta1
     }
 
     function secondtokenAddress() public view returns(address) {
-        return secondToken;
+        // OUTPUT address della moneta2
     }
 
     function wantFirstPrint() public view returns(address[] memory) {
-        return wantFirst;
+        // OUTPUT lista degli utenti che hanno richiesto la moneta1
     }
 
-    function requestIsDone(address user) public view returns(bool) {
-        return requestDone[user];
+    function requestIsDone(/*parametri */) public view returns(bool) {
+        // OUTPUT sapere se un utente ha effettuato o meno una richiesta della moneta1
     }
 }

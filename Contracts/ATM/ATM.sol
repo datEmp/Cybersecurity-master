@@ -1,32 +1,27 @@
 pragma solidity ^0.8.15;
 
 import "./MyToken.sol";
+//import utili
 
 
 contract ATM {
-    address firstToken;
-    address secondToken;
 
-    address owner;
+    //strutture e parametri per monete e owner
 
-    constructor(address _firstToken, address _secondToken) {
-        firstToken = _firstToken;
-        secondToken = _secondToken;
-
-        owner = msg.sender;
+    constructor(/*parametri*/) {
+        //inizializzazione parametri
     }
 
     function exchangeFirstToken() public {
-        MyToken(firstToken).transferFrom(msg.sender, address(this), 1);
-        MyToken(secondToken).transfer(msg.sender, 1);
+        //trasferimento dal msg.sender al contratto  della moneta1 e dal contratto al msg.sender della moneta2
     }
 
-    function withdrawFirstToken(uint256 amount)public {
-        require(msg.sender== owner, "only owner can withdraw");
-        MyToken(firstToken).transfer(msg.sender, amount);
+    function withdrawFirstToken(/*parametri*/)public {
+        //trasferimento di una certa quantità di moneta2 da questo contratto al distributore che l'ha creato
+        //questa operazione la può fare solo l'owner
     }
 
     function getOwner() public view returns(address){
-        return owner;
+        //OUTPUT address dell'owner
     }
 }

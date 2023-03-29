@@ -1,0 +1,10 @@
+CASO D'USO GIOCATTOLO
+
+Un utente organizza un evento. Chi vuole partecipare deve richiedere il token per l'accredito, l'organizzatore provvederà a inviarlo. Una volta in possesso del token per l'accredito l'utente, può
+il giorno dell'evento, scambiarlo per una consumazione gratuita. Sarà dunque in possesso del token per la consumazione che (Supponendo un altro caso d'uso verrà speso da terzi per ottenere l'omaggio). L'organizzatore alla fine può riscattare i token per l'accredito da usare per il prossimo evento.
+
+Entità:
+	token first e second
+	distributore di accrediti
+	stand per scambiare l'accredito con l'omaggio
+	utente organizzatore e utente partecipante

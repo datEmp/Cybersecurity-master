@@ -2,15 +2,17 @@
 pragma solidity ^0.8.4;
 
 contract TestCounter {
-    int private count = 0;
+
+    // parametro del counter
+
     function incrementCounter() public {
-        count += 1;
+        //incrementa il counter
     }
     function decrementCounter() public {
-        count -= 1;
+        // decrementa il counter
     }
 
     function getCount() public view returns (int) {
-        return count;
+        // restituisci il counter
     }
 }

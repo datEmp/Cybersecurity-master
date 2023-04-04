@@ -8,7 +8,7 @@ contract Distributor {
     constructor(
         /*parametri */) {
 
-        //assegnamento dei parametri e mint
+        //assegnazione dei parametri e mint
     }
 
     function distribute() public {

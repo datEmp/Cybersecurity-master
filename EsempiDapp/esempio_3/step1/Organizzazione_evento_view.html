@@ -11,7 +11,7 @@
 <h1>A Simple Application</h1>
 <div class="table-responsive">
   <h4 id="user_address"></h4>
-  <label style="color:red" id="user_role"></label>
+  <label id="user_role"></label>
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -52,25 +52,6 @@
 </body>
 <a href="#" onclick="getBalances()" class="btn btn-primary">Calcola i bilanci</a>
 <a href="#" onclick="hideBalances()" class="btn btn-primary">Nascondi i bilanci</a>
-<br>
-<br>
-<a id='fillDistr-button' href="#" onclick="fillDistributor()" class="btn btn-primary">Ricarica distributore</a>
-<br>
-<br>
-<a id='createATM-button' href="#" onclick="createATM()" class="btn btn-primary">Crea STAND</a>
-<a id='fillATM-button' href="#" onclick="addFundsToATM()" class="btn btn-primary">Ricarica STAND</a>
-<br>
-<label id="atm_info" ></label>
-<br>
-<a id='requestforFirstToken-button' href="#" onclick="requestForFirstToken()" class="btn btn-primary">Richiedi TOKEN di accredito</a>
-<a id='distributeFirstToken-button' href="#" onclick="distributeFirstToken()" class="btn btn-primary">Distribuisci TOKEN di accredito</a>
-<br>
-<br>
-<a id='exchangeToken-button' href="#" onclick="exchangeFirstWithSecond()" class="btn btn-primary">Preleva token BIBITA</a>
-<br>
-<br>
-<input type="number" id="toWithdraw" />
-<a id='withdraw-button' href="#" onclick="withdraw()" class="btn btn-primary">Preleva da STAND</a>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
 <script src="Organizzazione_evento.js" async></script>
 </html>

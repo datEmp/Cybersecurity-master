@@ -22,22 +22,14 @@ web3.eth.getAccounts().then((accountList) => {
 
     if (first_account === second_account) {
         document.getElementById('user_role').innerHTML = "COMMON USER";
-        document.getElementById('fillATM-button').style.display = 'none';
-        document.getElementById('fillDistr-button').style.display = 'none';
-        document.getElementById('createATM-button').style.display = 'none';
         document.getElementById('user_role').style.color = 'green';
-        document.getElementById('distributeFirstToken-button').style.display = 'none';
-        document.getElementById('toWithdraw').style.display = 'none';
-        document.getElementById('withdraw-button').style.display = 'none';
-
     } else {
         document.getElementById('user_role').innerHTML = "OWNER";
         document.getElementById('user_role').style.color = 'red';
-        document.getElementById('requestforFirstToken-button').style.display = 'none';
-        document.getElementById('exchangeToken-button').style.display = 'none';
     }
 })
-//0xB6c168FC8B4F48f5198662111d40ad47172D6dea0xBc4edbF706C5aE542f940bcFf49d184DA533622E
+//0xB6c168FC8B4F48f5198662111d40ad47172D6dea  0xBc4edbF706C5aE542f940bcFf49d184DA533622E
+
 const contract_address_Distributor = "0xB6c168FC8B4F48f5198662111d40ad47172D6dea";
 const distributor_ABI = [
     {
@@ -710,107 +702,4 @@ function hideBalances() {
     document.getElementById('atm-balance2').innerHTML = '';
 }
 
-async function createATM() {
-    try{
-        let contract_address_ATM = await distributor_contract.methods.getMyATM().call();
-        if (contract_address_ATM === zero_address) {
 
-            document.getElementById('atm_info').innerHTML = "ATM in creazione...";
-            await distributor_contract.methods.createATM(1000).send({from: first_account});
-            contract_address_ATM = await distributor_contract.methods.getMyATM().call();
-            document.getElementById('atm_info').innerHTML = "ATM creato e raggiungibile al " + contract_address_ATM;
-
-        } else {
-            document.getElementById('atm_info').innerHTML = "ATM creato e raggiungibile al " + contract_address_ATM;
-        }
-        getBalances()
-    }
-    catch {
-        console.log("error in createATM()")
-    }
-
-}
-
-async function addFundsToATM() {
-    try {
-        let contract_address_ATM = await distributor_contract.methods.getMyATM().call();
-        if (contract_address_ATM === zero_address) {
-            document.getElementById('atm_info').innerHTML = "ATM non ancora creato";
-        } else {
-            await distributor_contract.methods.addFundsToATM(10).send({from: first_account});
-        }
-        getBalances();
-    } catch {
-        console.log('some error in addFundsToATM()')
-    }
-
-}
-
-async function fillDistributor() {
-    try {
-        await distributor_contract.methods.fillDistributor(5000).send({from: first_account});
-        getBalances();
-    } catch {
-        console.log('some error in fillDistributor')
-    }
-
-}
-
-async function requestForFirstToken() {
-    try {
-        await distributor_contract.methods.getFirstToken().send({from: first_account});
-        window.alert('Hai inviato la richiesta di accredito')
-    } catch {
-        console.log('error in requestForFirstToken')
-    }
-}
-
-async function distributeFirstToken() {
-    try {
-        await distributor_contract.methods.distribute().send({from: first_account});
-        getBalances();
-    } catch {
-        console.log('error in distributeFirstToken')
-    }
-
-}
-
-async function exchangeFirstWithSecond() {
-
-    try {
-        let contract_address_ATM = await distributor_contract.methods.getMyATM().call();
-
-        if (contract_address_ATM === zero_address) {
-            document.getElementById('atm_info').innerHTML = "ATM non ancora creato";
-        } else {
-
-            const firstTokenAddress = await distributor_contract.methods.firstTokenAddress().call();
-            const firstToken_contract = new web3.eth.Contract(myToken_ABI, firstTokenAddress);
-            console.log("CONTRATTO FIRST TOKEN: ", firstToken_contract);
-            await firstToken_contract.methods.approve(contract_address_ATM, 1).send({from: first_account});
-            const ATM_contract = new web3.eth.Contract(ATM_ABI, contract_address_ATM);
-            await ATM_contract.methods.exchangeFirstToken().send({from: first_account});
-        }
-        getBalances();
-    } catch {
-        console.log('some error occurred while exchangeFirstWithSecond()')
-    }
-}
-
-async function withdraw() {
-    try {
-        let contract_address_ATM = await distributor_contract.methods.getMyATM().call();
-
-        if (contract_address_ATM === zero_address) {
-            document.getElementById('atm_info').innerHTML = "ATM non ancora creato";
-        } else {
-            let toWithdraw = document.getElementById('toWithdraw').value
-            if (toWithdraw !== '' && toWithdraw > 0) {
-                await distributor_contract.methods.withdrawFirstTokenFromATM(toWithdraw).send({from: first_account});
-            }
-        }
-        getBalances();
-    } catch {
-        console.log('some error occurred while withdraw()')
-    }
-}

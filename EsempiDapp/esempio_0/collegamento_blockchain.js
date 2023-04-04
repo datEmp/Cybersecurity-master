@@ -1,6 +1,7 @@
 let web3;
 const ethEnabled = async () => {
     if (window.ethereum) {
+        console.log('window.ethereum is enabled')
         web3 = new Web3(window.ethereum);
         await window.ethereum.enable();
     }
@@ -18,54 +19,52 @@ let accounts;
 let first_account;
 let second_account= '0x2DE97480d29bE7cf759CBA4B5782BB2aFE9F2BD7';
 
-web3.eth.getAccounts().then((accountList) => {
-    accounts = accountList;
-    first_account = accountList[0];
+getWeb3Info = async () => {
+
+    // get Node Info
+    const node= await web3.eth.getNodeInfo();
+    console.log(node);
+    document.getElementById("nodeInfo").innerHTML = node;
+
+    accounts = await web3.eth.getAccounts();
+    first_account = accounts[0];
+    console.log(accounts);
     console.log(first_account);
     document.getElementById("userConnected").innerHTML = first_account;
-    console.log(second_account);
-    console.log(web3.eth)
-    web3.eth.getBalance(first_account).then((balance) => {
-        console.log(balance);
-        document.getElementById("userBalanceGWEI").innerHTML = balance;
-        document.getElementById("userBalanceETH").innerHTML = web3.utils.fromWei(balance, 'ether');
-    })
-
-    web3.eth.getGasPrice().then((gasPrice) => {
-        console.log(gasPrice);
-        document.getElementById("gasPrice").innerHTML = web3.utils.fromWei(gasPrice, 'ether');
-    })
-
-    web3.eth.getBlockNumber().then((blockNumber) => {
-        console.log(blockNumber);
-        document.getElementById("blockNumber").innerHTML = blockNumber;
-    })
-
-    web3.eth.getBlock('latest').then((block) => {
-        console.log(block);
-        document.getElementById("block").innerHTML = JSON.stringify(block);
-    })
-
-    web3.eth.getTransactionCount(first_account).then((transactionCount) => {
-        console.log(transactionCount);
-        document.getElementById("transactionCount").innerHTML = transactionCount;
-    })
-
-    web3.eth.getCoinbase().then((coinbase) => {
-        console.log(coinbase);
-        document.getElementById("coinbase").innerHTML = coinbase;
-    })
-
-    web3.eth.getChainId().then((chainId) => {
-        console.log(chainId);
-        document.getElementById("chainId").innerHTML = chainId;
-    })
+    document.getElementById('accounts').innerHTML = accounts;
+    document.getElementById('secondAccount').innerHTML = second_account;
 
 
+    const balance = await web3.eth.getBalance(first_account);
+    console.log(balance);
+    document.getElementById("userBalanceGWEI").innerHTML = balance;
+    document.getElementById("userBalanceETH").innerHTML = web3.utils.fromWei(balance, 'ether');
 
+    const second_account_balance = await web3.eth.getBalance(second_account);
+    console.log(second_account_balance);
+    document.getElementById("secondAccountBalance").innerHTML = web3.utils.fromWei(second_account_balance, 'ether');
 
-})
+    const gasPrice = await web3.eth.getGasPrice();
+    console.log(gasPrice);
+    document.getElementById("gasPrice").innerHTML = web3.utils.fromWei(gasPrice, 'ether');
 
+    const blockNumber = await web3.eth.getBlockNumber();
+    console.log(blockNumber);
+    document.getElementById("blockNumber").innerHTML = blockNumber;
+
+    const block = await web3.eth.getBlock('latest');
+    document.getElementById("block").innerHTML = JSON.stringify(block);
+
+    const transactionCount = await web3.eth.getTransactionCount(first_account);
+    console.log(transactionCount);
+    document.getElementById("transactionCount").innerHTML = transactionCount;
+
+    const chainId = await web3.eth.getChainId();
+    console.log(chainId);
+    document.getElementById("chainId").innerHTML = chainId;
+}
+
+getWeb3Info()
 
 
 

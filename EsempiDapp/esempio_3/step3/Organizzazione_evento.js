@@ -29,7 +29,6 @@ web3.eth.getAccounts().then((accountList) => {
         document.getElementById('distributeFirstToken-button').style.display = 'none';
         document.getElementById('toWithdraw').style.display = 'none';
         document.getElementById('withdraw-button').style.display = 'none';
-
     } else {
         document.getElementById('user_role').innerHTML = "OWNER";
         document.getElementById('user_role').style.color = 'red';
@@ -37,7 +36,8 @@ web3.eth.getAccounts().then((accountList) => {
         document.getElementById('exchangeToken-button').style.display = 'none';
     }
 })
-//0xB6c168FC8B4F48f5198662111d40ad47172D6dea0xBc4edbF706C5aE542f940bcFf49d184DA533622E
+//0xB6c168FC8B4F48f5198662111d40ad47172D6dea  0xBc4edbF706C5aE542f940bcFf49d184DA533622E
+
 const contract_address_Distributor = "0xB6c168FC8B4F48f5198662111d40ad47172D6dea";
 const distributor_ABI = [
     {
@@ -710,6 +710,7 @@ function hideBalances() {
     document.getElementById('atm-balance2').innerHTML = '';
 }
 
+
 async function createATM() {
     try{
         let contract_address_ATM = await distributor_contract.methods.getMyATM().call();
@@ -728,6 +729,15 @@ async function createATM() {
     catch {
         console.log("error in createATM()")
     }
+}
+
+async function distributeFirstToken() {
+    try {
+        await distributor_contract.methods.distribute().send({from: first_account});
+        getBalances();
+    } catch {
+        console.log('error in distributeFirstToken')
+    }
 
 }
 
@@ -743,7 +753,6 @@ async function addFundsToATM() {
     } catch {
         console.log('some error in addFundsToATM()')
     }
-
 }
 
 async function fillDistributor() {
@@ -753,7 +762,6 @@ async function fillDistributor() {
     } catch {
         console.log('some error in fillDistributor')
     }
-
 }
 
 async function requestForFirstToken() {
@@ -765,15 +773,6 @@ async function requestForFirstToken() {
     }
 }
 
-async function distributeFirstToken() {
-    try {
-        await distributor_contract.methods.distribute().send({from: first_account});
-        getBalances();
-    } catch {
-        console.log('error in distributeFirstToken')
-    }
-
-}
 
 async function exchangeFirstWithSecond() {
 
@@ -797,6 +796,7 @@ async function exchangeFirstWithSecond() {
     }
 }
 
+
 async function withdraw() {
     try {
         let contract_address_ATM = await distributor_contract.methods.getMyATM().call();
@@ -814,3 +814,6 @@ async function withdraw() {
         console.log('some error occurred while withdraw()')
     }
 }
+
+
+

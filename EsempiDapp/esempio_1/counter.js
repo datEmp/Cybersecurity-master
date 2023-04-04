@@ -1,4 +1,3 @@
-
 let web3;
 const ethEnabled = async () => {
     if (window.ethereum) {
@@ -16,14 +15,6 @@ ethEnabled();
 let accounts;
 let first_account;
 let second_account= '0x2DE97480d29bE7cf759CBA4B5782BB2aFE9F2BD7';
-
-web3.eth.getAccounts().then((accountList) => {
-    accounts = accountList;
-    first_account = accountList[0];
-    console.log(first_account);
-    console.log(second_account);
-})
-
 const abi = [
     {
         "inputs": [],
@@ -52,12 +43,20 @@ const abi = [
         "stateMutability": "nonpayable",
         "type": "function"
     }
-]
+];
 const contract_address = "0x1711823D7828EaCe4119d2011068DFd8Fd1A7e2f";
+
+web3.eth.getAccounts().then((accountList) => {
+    accounts = accountList;
+    first_account = accountList[0];
+    console.log(first_account);
+    console.log(second_account);
+})
 
 let contract = new web3.eth.Contract(abi, contract_address);
 console.log("CONTRATTO: ", contract)
 
+showCounter()
 
 async function increment() {
     await contract.methods.incrementCounter().send({from: first_account})
